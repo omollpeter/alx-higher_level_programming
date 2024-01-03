@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 import sys
+
+
 def print_to_err():
-    sys.stderr.write("and that piece of art is useful - Dora Korpar, 2015-10-19\n")
+    info = "and that piece of art is useful - Dora Korpar, 2015-10-19\n"
+    sys.stderr.write(info)
     sys.exit(1)
 
 
