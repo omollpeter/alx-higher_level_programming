@@ -4,4 +4,4 @@ import py_compile, os
 
 file = os.environ['PYFILE']
 print(f"Compiling {file} ...")
-py_compile.compile(file)
+py_compile.compile(file, cfile=f"{file}c")
