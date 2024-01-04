@@ -1,12 +1,19 @@
 #!/usr/bin/python3
-def add(a, b):
-    """My addition function
+from add_0 import add
+
+
+def use_add(a, b):
+    """Use add function - Uses add function from a module
 
     Args:
-        a: first integer
-        b: second integer
+        a: First integer
+        b: Second integer
 
     Returns:
-        The return value. a + b
+        return value - Nothing
     """
-    return (a + b)
+    print("{0} + {1} = {2}".format(a, b, add(a, b)))
+
+
+if __name__ == "__main__":
+    use_add(1, 2)
