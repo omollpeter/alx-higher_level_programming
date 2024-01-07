@@ -1,0 +1,1 @@
+### This folder contains projects on Python's builtin data structures(lists, tuples)
