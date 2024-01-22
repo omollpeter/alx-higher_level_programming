@@ -1,0 +1,1 @@
+### This folder contains projects on how to handle exceptions in Python
