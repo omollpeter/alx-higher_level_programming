@@ -97,13 +97,15 @@ class SinglyLinkedList:
             self.insert_beginning(value)
             return
         temp = self.__head
+        prev = None
         if temp.data > value:
             self.insert_beginning(value)
             return
         new = Node(value)
         while temp.next_node:
             if temp.data >= value:
-                prev.next_node = new
+                if prev is not None:
+                    prev.next_node = new
                 new.next_node = temp
                 return
             prev = temp
