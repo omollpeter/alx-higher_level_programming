@@ -30,9 +30,69 @@ class Square:
             raise ValueError("size must be >= 0")
         self.__size = size
 
-    def __str__(self):
-        "String representation of an instance"
-        return str(self.area())
+    def __eq__(self, other):
+        """Compares if two instances of the same class are equal
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() == other.area()
+
+    def __lt__(self, other):
+        """Compares if an instance is less than other instance of the same
+        class
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() < other.area()
+
+    def __le__(self, other):
+        """Compares if an instance is less than or equal to other instance of
+        the same
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() <= other.area()
+
+    def __gt__(self, other):
+        """Compares if an instance is greater than other instance of the same
+        class
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() > other.area()
+
+    def __ge__(self, other):
+        """Compares if an instance is greater than or equal to other instance
+        of the same
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() >= other.area()
+
+    def __ne__(self, other):
+        """Compares if two instaces of the same class are not equal
+
+        Args:
+            other: Instance to compare with current instace
+        Returns:
+            bool: True of False
+        """
+        return self.area() != other.area()
 
     def area(self):
         """Computes area of Square instance
