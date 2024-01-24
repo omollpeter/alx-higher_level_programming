@@ -18,8 +18,13 @@ class Square:
             raise ValueError("size must be >= 0")
         if not isinstance(position, tuple):
             raise TypeError("position must be a tuple of 2 positive integers")
+        if len(position) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
         for item in position:
             if not isinstance(item, int):
+                raise TypeError(
+                    "position must be a tuple of 2 positive integers")
+            if item < 0:
                 raise TypeError(
                     "position must be a tuple of 2 positive integers")
         self.__size = size
@@ -47,14 +52,27 @@ class Square:
     def position(self, position):
         if not isinstance(position, tuple):
             raise TypeError("position must be a tuple of 2 positive integers")
+        if len(position) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
         for item in position:
             if not isinstance(item, int):
+                raise TypeError(
+                    "position must be a tuple of 2 positive integers")
+            if item < 0:
                 raise TypeError(
                     "position must be a tuple of 2 positive integers")
         self.__position = position
 
     def __repr__(self):
-        return self.my_print()
+        """String representration of the Square instance"""
+        if not self.__size:
+            return ''
+        else:
+            msg = '\n'.join(
+                self.__position[0] * ' ' +
+                self.__size * "#" for i in range(self.__size)
+            )
+            return self.__position[1] * '\n' + msg
 
     def area(self):
         """Computes area of Square instance
@@ -72,4 +90,5 @@ class Square:
             for i in range(self.__position[1]):
                 print('')
             for i in range(self.__size):
+                print(self.__position[0] * ' ', end='')
                 print(self.__size * "#")
