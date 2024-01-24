@@ -45,6 +45,7 @@ class Node:
                 raise TypeError("next_node must be a Node object")
             self.__next_node = value
 
+
 class SinglyLinkedList:
     """Defines a singly linked list"""
 
@@ -68,7 +69,7 @@ class SinglyLinkedList:
         Args:
             value: Value to be inserted
         """
-        if self.__head == None:
+        if self.__head is None:
             self.__head = Node(value)
             return
         temp = self.__head
