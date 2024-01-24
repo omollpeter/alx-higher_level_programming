@@ -2,7 +2,7 @@
 """Contains class definition for MagicClass"""
 
 
-import math, dis
+import math
 
 
 class MagicClass:
@@ -21,7 +21,3 @@ class MagicClass:
     def circumference(self):
         """Calculates the circumference"""
         return 2 * math.pi * self.__radius
-
-# dis.dis("MagicClass.__init__")
-mc = MagicClass(10)
-print(mc.area())
