@@ -55,6 +55,8 @@ class SinglyLinkedList:
 
     def __repr__(self):
         """Prints the singly linked list"""
+        if self.__head is None:
+            return ''
         temp = self.__head
         msg = ''
         while temp.next_node:
@@ -113,6 +115,7 @@ class SinglyLinkedList:
         temp.next_node = new
 
     def print_ll(self):
+        """Prints the elements in the singly linked list"""
         temp = self.__head
         while temp:
             print(temp.data)
