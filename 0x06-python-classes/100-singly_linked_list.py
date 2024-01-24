@@ -37,10 +37,13 @@ class Node:
         return self.__next_node
 
     @next_node.setter
-    def next_node(self, next_node):
-        if next_node is not None or not isinstance(next_node, Node):
-            raise TypeError("next_node must be a Node object")
-        self.__next_node = next_node
+    def next_node(self, value):
+        if value is None:
+            self.__next_node = None
+        else:
+            if not isinstance(value, Node):
+                raise TypeError("next_node must be a Node object")
+            self.__next_node = value
 
 class SinglyLinkedList:
     """Defines a singly linked list"""
@@ -52,38 +55,62 @@ class SinglyLinkedList:
     def __repr__(self):
         """Prints the singly linked list"""
         temp = self.__head
-        while temp:
-            print(temp.data)
+        msg = ''
+        while temp.next_node:
+            msg += str(temp.data) + '\n'
             temp = temp.next_node
-        return ''
+        msg += str(temp.data)
+        return msg
 
-    def sorted_insert(self, value):
-        """Inserts a new node into the correct sorted position
+    def insert_end(self, value):
+        """Inserts a new node at the end of a singly linked list
 
         Args:
             value: Value to be inserted
         """
-        new = Node(value)
         if self.__head == None:
-            self.__head = new
-        else:
-            temp = self.__head
-            while temp.next_node:
-                if temp.data > value:
-                    prev = temp
-                    new.next_node = temp
-                temp = temp.next_node
+            self.__head = Node(value)
+            return
+        temp = self.__head
+        while temp.next_node:
+            temp = temp.next_node
+        temp.next_node = Node(value)
 
-sll = SinglyLinkedList()
-sll.sorted_insert(2)
-sll.sorted_insert(5)
-sll.sorted_insert(3)
-sll.sorted_insert(10)
-sll.sorted_insert(1)
-sll.sorted_insert(-4)
-sll.sorted_insert(-3)
-sll.sorted_insert(4)
-sll.sorted_insert(5)
-sll.sorted_insert(12)
-sll.sorted_insert(3)
-print(sll)
+    def insert_beginning(self, value):
+        """Inserts a new node at the end of a singly linked list
+
+        Args:
+            value: Value to be inserted
+        """
+        new = Node(value, self.__head)
+        self.__head = new
+
+    def sorted_insert(self, value):
+        """Inserts a new node into the correct sorted position
+        of the linked list
+
+        Args:
+            value: Value to be inserted
+        """
+        if self.__head is None:
+            self.insert_beginning(value)
+            return
+        temp = self.__head
+        if temp.data > value:
+            self.insert_beginning(value)
+            return
+        new = Node(value)
+        while temp.next_node:
+            if temp.data >= value:
+                prev.next_node = new
+                new.next_node = temp
+                return
+            prev = temp
+            temp = temp.next_node
+        temp.next_node = new
+
+    def print_ll(self):
+        temp = self.__head
+        while temp:
+            print(temp.data)
+            temp = temp.next_node
