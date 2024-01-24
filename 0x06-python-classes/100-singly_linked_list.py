@@ -93,7 +93,7 @@ class SinglyLinkedList:
         Args:
             value: Value to be inserted
         """
-        if self.__head is None:
+        if self.__head is None or self.__head.data == value:
             self.insert_beginning(value)
             return
         temp = self.__head
