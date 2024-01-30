@@ -1,0 +1,30 @@
+>>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+
+>>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
+array([[ 7, 10],
+       [15, 22]])
+
+>>> lazy_matrix_mul([[1, 2], [3, 4]], 3)
+Traceback (most recent call last):
+    ...
+TypeError: m_a or m_b must be of list type
+
+>>> lazy_matrix_mul([3, 4], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: m_a must be a list of lists
+
+>>> lazy_matrix_mul([[1, 2], [3, 4]], [])
+Traceback (most recent call last):
+    ...
+ValueError: m_a or m_b cannot be empty
+
+>>> lazy_matrix_mul([[]], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+ValueError: m_a or m_b cannot be empty
+
+>>> lazy_matrix_mul([[3, 4]], [['a', 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: lists in m_b should contain only int or floats
