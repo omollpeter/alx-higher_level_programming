@@ -20,7 +20,8 @@ def lazy_matrix_mul(m_a, m_b):
         for item in m_a:
             if type(item) is list:
                 if not len(item):
-                    raise ValueError("shapes (1,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)")
+                    raise ValueError("shapes (1,0) and (2,2) not aligned:" +
+                                     " 0 (dim 1) != 2 (dim 0)")
                 for a in item:
                     if type(a) is not int and type(a) is not float:
                         raise TypeError("invalid data type for einsum")
