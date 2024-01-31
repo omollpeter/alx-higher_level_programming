@@ -16,6 +16,10 @@ def add_integer(a, b=98):
     if type(b) is not int and type(b) is not float:
         raise TypeError("b must be an integer")
 
+    result = a + b
+    if result == float('inf') or result == -float('inf'):
+        raise ValueError("Numbers to big to be represented")
+
     if type(a) is float:
         a = int(a)
     if type(b) is float:
