@@ -52,5 +52,4 @@ def matrix_divided(matrix, div):
     mat = matrix.copy()
     return list(
         map(lambda row: list(map(lambda x: round(x / div, 2), row)),
-            mat    
-        ))
+            mat))
