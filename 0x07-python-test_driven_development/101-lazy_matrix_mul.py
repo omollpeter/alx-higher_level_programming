@@ -20,15 +20,14 @@ def lazy_matrix_mul(m_a, m_b):
         for item in m_a:
             if type(item) is list:
                 if not len(item):
-                    raise ValueError("m_a or m_b cannot be empty")
+                    raise ValueError("shapes (1,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)")
                 for a in item:
                     if type(a) is not int and type(a) is not float:
-                        raise TypeError(
-                            "lists in m_a should contain only int or floats")
+                        raise TypeError("invalid data type for einsum")
             else:
                 raise TypeError("m_a must be a list of lists")
     else:
-        raise TypeError("m_a or m_b must be of list type")
+        raise TypeError("Scalar operands are not allowed, use '*' instead")
 
     sizes_ma = []
     for item in m_a:
@@ -39,7 +38,7 @@ def lazy_matrix_mul(m_a, m_b):
         if size == len1:
             continue
         else:
-            raise TypeError("Rows of each matrix must be of the same size")
+            raise TypeError("setting an array element with a sequence.")
 
     if type(m_b) is list:
         if not len(m_b):
@@ -47,15 +46,15 @@ def lazy_matrix_mul(m_a, m_b):
         for item in m_b:
             if type(item) is list:
                 if not len(item):
-                    raise ValueError("m_a or m_b cannot be empty")
+                    raise ValueError("shapes (1,0) and (2,2) not aligned:" +
+                                     " 0 (dim 1) != 2 (dim 0)")
                 for a in item:
                     if type(a) is not int and type(a) is not float:
-                        raise TypeError(
-                            "lists in m_b should contain only int or floats")
+                        raise TypeError("invalid data type for einsum")
             else:
                 raise TypeError("m_b must be a list of lists")
     else:
-        raise TypeError("m_a or m_b must be of list type")
+        raise TypeError("Scalar operands are not allowed, use '*' instead")
 
     sizes_mb = []
     for item in m_b:
@@ -66,7 +65,7 @@ def lazy_matrix_mul(m_a, m_b):
         if size == len2:
             continue
         else:
-            raise TypeError("Rows of each matrix must be of the same size")
+            raise TypeError("setting an array element with a sequence.")
 
     len_mb = len(m_b)
     if len1 != len_mb:
