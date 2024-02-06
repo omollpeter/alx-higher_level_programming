@@ -14,6 +14,8 @@ def save_to_json_file(my_obj, filename):
     Writes JSON to a file
     """
 
+    if len(filename) == 0 and not isinstance(filename, str):
+        return
     json_data = json.dumps(my_obj)
 
     with open(filename, "w") as f:
