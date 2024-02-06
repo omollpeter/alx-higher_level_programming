@@ -12,6 +12,5 @@ def read_file(filename=""):
     """
 
     with open(filename, encoding="utf-8") as f:
-        for line in f:
-            print(line, end='')
-    print()
+        lines = [line.strip("\n") for line in f]
+        print('\n'.join(lines))
