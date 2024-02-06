@@ -3,3 +3,4 @@ test.py
 __pycache__/
 .vscode/
 tests/__pycache__/
+my_file_0.txt
