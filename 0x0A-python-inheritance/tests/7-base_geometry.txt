@@ -3,12 +3,37 @@
 >>> bg = BaseGeometry()
 >>> bg.integer_validator("int", 6)
 
+>>> bg.area()
+Traceback (most recent call last):
+    ...
+Exception: area() is not implemented
+
 >>> bg.integer_validator("int", "6")
 Traceback (most recent call last):
     ...
 TypeError: int must be an integer
 
 >>> bg.integer_validator("int", None)
+Traceback (most recent call last):
+    ...
+TypeError: int must be an integer
+
+>>> bg.integer_validator("int", (2,))
+Traceback (most recent call last):
+    ...
+TypeError: int must be an integer
+
+>>> bg.integer_validator("int", [3])
+Traceback (most recent call last):
+    ...
+TypeError: int must be an integer
+
+>>> bg.integer_validator("int", True)
+Traceback (most recent call last):
+    ...
+TypeError: int must be an integer
+
+>>> bg.integer_validator("int", {"int": 4})
 Traceback (most recent call last):
     ...
 TypeError: int must be an integer
