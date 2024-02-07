@@ -9,8 +9,6 @@ import sys
 import select
 
 
-if not select.select([sys.stdin, ], [], [], 0.0)[0]:
-    sys.exit(0)
 i = 0
 stat_codes = []
 file_size = 0
