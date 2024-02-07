@@ -61,3 +61,8 @@
 []
 >>> my_list6.print_sorted()
 []
+
+>>> my_list7 = MyList([5, 4, 0, 3, 1])
+>>> returned = my_list7.print_sorted()
+[0, 1, 3, 4, 5]
+>>> returned
