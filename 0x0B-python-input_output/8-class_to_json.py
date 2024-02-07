@@ -6,12 +6,9 @@ This module contains the following function:
 """
 
 
-import json
-
-
 def class_to_json(obj):
     """
     Converts all instance attributes in __dict__ to JSON
     """
 
-    return json.dumps(obj.__dict__)
+    return obj.__dict__
