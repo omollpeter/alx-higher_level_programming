@@ -14,6 +14,8 @@ file_size = 0
 
 try:
     for line in sys.stdin:
+        if not len(line):
+            sys.exit(0)
         line = line.split("\"")
         stat_size = line[2].split()
 
