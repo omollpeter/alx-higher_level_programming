@@ -6,16 +6,17 @@ This module contains a script that reads stdin line by line
 
 
 import sys
+import select
 
 
+if not select.select([sys.stdin, ], [], [], 0.0)[0]:
+    sys.exit(0)
 i = 0
 stat_codes = []
 file_size = 0
 
 try:
     for line in sys.stdin:
-        if not len(line):
-            sys.exit(0)
         line = line.split("\"")
         stat_size = line[2].split()
 
