@@ -33,7 +33,7 @@ Traceback (most recent call last):
     ...
 TypeError: int must be an integer
 
->>> bg.integer_validator("int", {"int": 4})
+>>> bg.integer_validator("int", {3, 4})
 Traceback (most recent call last):
     ...
 TypeError: int must be an integer
