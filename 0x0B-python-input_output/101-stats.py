@@ -11,19 +11,9 @@ import sys
 i = 0
 stat_codes = []
 file_size = 0
-total_200 = 0
-total_301 = 0
-total_400 = 0
-total_401 = 0
-total_403 = 0
-total_404 = 0
-total_405 = 0
-total_500 = 0
 
 try:
-    lines = sys.stdin
-
-    for line in lines:
+    for line in sys.stdin:
         line = line.split("\"")
         stat_size = line[2].split()
 
@@ -35,23 +25,15 @@ try:
 
         i += 1
         if i % 10 == 0:
-            for n in stat_codes:
-                if n == 200:
-                    total_200 += 1
-                elif n == 301:
-                    total_301 += 1
-                elif n == 400:
-                    total_400 += 1
-                elif n == 401:
-                    total_401 += 1
-                elif n == 403:
-                    total_403 += 1
-                elif n == 404:
-                    total_404 += 1
-                elif n == 405:
-                    total_405 += 1
-                elif n == 500:
-                    total_500 += 1
+            total_200 = stat_codes.count(200)
+            total_301 = stat_codes.count(301)
+            total_400 = stat_codes.count(400)
+            total_401 = stat_codes.count(401)
+            total_403 = stat_codes.count(403)
+            total_404 = stat_codes.count(404)
+            total_405 = stat_codes.count(405)
+            total_500 = stat_codes.count(500)
+
             if file_size:
                 print(f"File size: {file_size}")
             if total_200:
@@ -71,6 +53,15 @@ try:
             if total_500:
                 print(f"500: {total_500}")
 except KeyboardInterrupt:
+    total_200 = stat_codes.count(200)
+    total_301 = stat_codes.count(301)
+    total_400 = stat_codes.count(400)
+    total_401 = stat_codes.count(401)
+    total_403 = stat_codes.count(403)
+    total_404 = stat_codes.count(404)
+    total_405 = stat_codes.count(405)
+    total_500 = stat_codes.count(500)
+
     if file_size:
         print(f"File size: {file_size}")
     if total_200:
@@ -89,3 +80,4 @@ except KeyboardInterrupt:
         print(f"405: {total_405}")
     if total_500:
         print(f"500: {total_500}")
+    raise
