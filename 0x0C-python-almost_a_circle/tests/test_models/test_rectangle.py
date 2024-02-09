@@ -97,3 +97,10 @@ class TestRectangleObj(unittest.TestCase):
         self.assertRaises(TypeError, setattr, rect, "y", 3.15)
         self.assertRaises(TypeError, setattr, rect, "y", (1, ))
         self.assertRaises(ValueError, setattr, rect, "y", -5)
+
+    def test_area(self):
+        self.assertEqual(self.r1.area(), 20)
+        self.assertEqual(self.r2.area(), 20)
+        self.assertEqual(self.r3.area(), 20)
+        self.r1.width = 15
+        self.assertEqual(self.r1.area(), 30)
