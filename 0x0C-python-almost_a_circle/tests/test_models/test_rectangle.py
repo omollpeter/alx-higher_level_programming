@@ -1,5 +1,7 @@
 import unittest
 from models.rectangle import Rectangle
+import sys
+from io import StringIO
 
 
 class TestRectangleId(unittest.TestCase):
@@ -104,3 +106,21 @@ class TestRectangleObj(unittest.TestCase):
         self.assertEqual(self.r3.area(), 20)
         self.r1.width = 15
         self.assertEqual(self.r1.area(), 30)
+
+    def test_str_(self):
+        rect1 = Rectangle(4, 6, 2, 1, 12)
+        rect2 = Rectangle(10, 8, id=54)
+
+        self.assertEqual(str(rect1), "[Rectangle] (12) 2/1 - 4/6")
+        self.assertEqual(str(rect2), "[Rectangle] (54) 0/0 - 10/8")
+
+    def test_display(self):
+        rect1 = Rectangle(2, 2, 1, 1, 57)
+        captured_output = StringIO()
+        sys.stdout = captured_output
+
+        rect1.display()
+        printed = captured_output.getvalue()
+
+        sys.stdout = sys.__stdout__
+        self.assertEqual(printed, "\n ##\n ##\n")

@@ -109,8 +109,22 @@ class Rectangle(Base):
 
     def display(self):
         """
-        Prints in stdout the Rectangle instance
+        Prints in stdout the Rectangle instance, taking the
+        coordinates into consideration
         """
-
+        print("\n" * self.__y, end="")
         for n in range(self.__height):
-            print(self.__width * "#")
+            print(self.__x * " " + self.__width * "#")
+
+    def __str__(self):
+        """
+        Returns the unofficial string representation of Rectangle
+        instance
+        """
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id,
+            self.__x,
+            self.__y,
+            self.__width,
+            self.__height
+        )
