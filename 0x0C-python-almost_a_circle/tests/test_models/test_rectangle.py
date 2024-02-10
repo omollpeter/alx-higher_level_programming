@@ -295,3 +295,224 @@ class TestRectangleObj(unittest.TestCase):
         self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, {})
         self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, None)
         self.assertRaises(ValueError, self.r1.update, 80, 2, 3, 17, -5)
+
+    def test_update_id_with_kwargs(self):
+        rect1 = Rectangle(5, 5, 5, 5, 71)
+        rect2 = Rectangle(10, 10)
+
+        rect1.update(id=80)
+        rect2.update(id=82)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(id=80, width=2)
+        rect2.update(id=82, width=2)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(id=80, width=2, height=3)
+        rect2.update(id=82, width=2, height=3)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(id=80, width=2, height=3, x=4)
+        rect2.update(id=82, width=2, height=3, x=4)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(id=80, width=2, height=3, x=4, y=5)
+        rect2.update(id=82, width=2, height=3, x=4, y=5)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+    def test_update_width_with_kwargs(self):
+        self.r1.update(id=80)
+        self.r3.update(id=82)
+        self.assertEqual(self.r1.width, 10)
+        self.assertEqual(self.r3.width, 5)
+
+        self.r1.update(id=80, width=2)
+        self.r3.update(id=82, width=2)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(id=80, width=2, height=3)
+        self.r3.update(id=82, width=2, height=3)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(id=80, width=2, height=3, x=4)
+        self.r3.update(id=82, width=2, height=3, x=4)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(id=80, width=2, height=3, x=4, y=5)
+        self.r3.update(id=82, width=2, height=3, x=4, y=5)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.assertRaises(TypeError, self.r1.update, id=80, width="2")
+        self.assertRaises(TypeError, self.r1.update, id=80, width=[], x=3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=(1, ),
+                          height=3, x=4)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=3.45, x=0,
+                          y=4)
+        self.assertRaises(TypeError, self.r1.update, id=80, width={1, 3},
+                          height=15, x=-3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width={},
+                          height=1, x=2, y=7)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=None,
+                          height=None, x=None)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=0, x=17)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=-2,
+                          height=5, x=5)
+
+    def test_update_height_with_kwargs(self):
+        self.r1.update(id=80)
+        self.r3.update(id=82)
+        self.assertEqual(self.r1.height, 2)
+        self.assertEqual(self.r3.height, 4)
+
+        self.r1.update(id=80, width=2)
+        self.r3.update(id=82, width=2)
+        self.assertEqual(self.r1.height, 2)
+        self.assertEqual(self.r3.height, 4)
+
+        self.r1.update(id=80, width=2, height=3)
+        self.r3.update(id=82, width=2, height=3)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.r1.update(id=80, width=2, height=3, x=4)
+        self.r3.update(id=82, width=2, height=3, x=4)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.r1.update(id=80, width=2, height=3, x=4, y=5)
+        self.r3.update(id=82, width=2, height=3, x=4, y=5)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height="2")
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=[], x=3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=(1, ), x=3, y=4)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3.45, x=0, y=4)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height={1, 3}, x=15, y=-3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height={}, x=2, y=7)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=None, x=None)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=2,
+                          height=0, x=17)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=2,
+                          height=-2, x=5, y=5)
+
+    def test_update_x_with_kwargs(self):
+        self.r1.update(id=80)
+        self.r3.update(id=82)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(id=80, width=2)
+        self.r3.update(id=82, width=2)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(id=80, width=2, height=3)
+        self.r3.update(id=82, width=2, height=3)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(id=80, width=2, height=3, x=4)
+        self.r3.update(id=82, width=2, height=3, x=4)
+        self.assertEqual(self.r1.x, 4)
+        self.assertEqual(self.r3.x, 4)
+
+        self.r1.update(id=80, width=2, height=3, x=4, y=5)
+        self.r3.update(id=82, width=2, height=3, x=4, y=5)
+        self.assertEqual(self.r1.x, 4)
+        self.assertEqual(self.r3.x, 4)
+
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x="2")
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=[], y=3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=(1, ), y=3)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=3.45, y=0)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x={1, 3}, y=15)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x={})
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=None, y=None)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=2,
+                          height=3, x=-5, y=17)
+
+    def test_update_y_with_kwargs(self):
+        self.r1.update(id=80)
+        self.r3.update(id=82)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(id=80, width=2)
+        self.r3.update(id=82, width=2)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(id=80, width=2, height=3)
+        self.r3.update(id=82, width=2, height=3)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(id=80, width=2, height=3, x=4)
+        self.r3.update(id=82, width=2, height=3, x=4)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(id=80, width=2, height=3, x=4, y=5)
+        self.r3.update(id=82, width=2, height=3, x=4, y=5)
+        self.assertEqual(self.r1.y, 5)
+        self.assertEqual(self.r3.y, 5)
+
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y="2")
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y=[])
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y=(1, ))
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y=3.45)
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y={1, 3})
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y={})
+        self.assertRaises(TypeError, self.r1.update, id=80, width=2,
+                          height=3, x=4, y=None)
+        self.assertRaises(ValueError, self.r1.update, id=80, width=2,
+                          height=3, x=17, y=-5)
+
+    def test_update_too_many_args(self):
+        self.assertRaises(IndexError, self.r1.update, 80, 2, 3, 4, 5, 6, 7)
+
+    def test_update_no_arg_or_kwarg(self):
+        self.assertRaises(IndexError, self.r1.update)
+        self.assertRaises(IndexError, self.r3.update)
+
+    def test_update_invalid_kwargs(self):
+        self.assertRaises(KeyError, self.r1.update, length=5)
+        self.assertRaises(KeyError, self.r3.update, id=51, length=5, x=7)
+
+    def test_update_kwargs_no_order(self):
+        self.r1.update(width=2, y=5, height=3, id=80, x=4)
+        self.assertEqual(self.r1.id, 80)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r1.x, 4)
+        self.assertEqual(self.r1.y, 5)
