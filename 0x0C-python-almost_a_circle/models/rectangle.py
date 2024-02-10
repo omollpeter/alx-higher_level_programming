@@ -128,3 +128,41 @@ class Rectangle(Base):
             self.__width,
             self.__height
         )
+
+    def update(self, *args):
+        """
+        Updates the instance attributes
+        """
+        len_args = len(args)
+        attribs = ("width", "height", "x", "y")
+        if len_args > 1 and len_args < 6:
+            for i in range(1, len_args):
+                if type(args[i]) is not int:
+                    raise TypeError(f"{attribs[i - 1]} must be an integer")
+
+                if i <= 2:
+                    if args[i] <= 0:
+                        raise ValueError(f"{attribs[i - 1]} must be > 0")
+                else:
+                    if args[i] < 0:
+                        raise ValueError(f"{attribs[i - 1]} must be >= 0")
+        if len_args == 1:
+            self.id = args[0]
+        elif len_args == 2:
+            self.id = args[0]
+            self.__width = args[1]
+        elif len_args == 3:
+            self.id = args[0]
+            self.__width = args[1]
+            self.__height = args[2]
+        elif len_args == 4:
+            self.id = args[0]
+            self.__width = args[1]
+            self.__height = args[2]
+            self.__x = args[3]
+        else:
+            self.id = args[0]
+            self.__width = args[1]
+            self.__height = args[2]
+            self.__x = args[3]
+            self.__y = args[4]

@@ -124,3 +124,174 @@ class TestRectangleObj(unittest.TestCase):
 
         sys.stdout = sys.__stdout__
         self.assertEqual(printed, "\n ##\n ##\n")
+
+    def test_update_id_with_args(self):
+        rect1 = Rectangle(5, 5, 5, 5, 71)
+        rect2 = Rectangle(10, 10)
+
+        rect1.update(80)
+        rect2.update(82)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(80, 2)
+        rect2.update(82, 2)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(80, 2, 3)
+        rect2.update(82, 2, 3)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(80, 2, 3, 4)
+        rect2.update(82, 2, 3, 4)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+        rect1.update(80, 2, 3, 4, 5)
+        rect2.update(82, 2, 3, 4, 5)
+        self.assertEqual(rect1.id, 80)
+        self.assertEqual(rect2.id, 82)
+
+    def test_update_width_with_args(self):
+        self.r1.update(80)
+        self.r3.update(82)
+        self.assertEqual(self.r1.width, 10)
+        self.assertEqual(self.r3.width, 5)
+
+        self.r1.update(80, 2)
+        self.r3.update(82, 2)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(80, 2, 3)
+        self.r3.update(82, 2, 3)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(80, 2, 3, 4)
+        self.r3.update(82, 2, 3, 4)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.r1.update(80, 2, 3, 4, 5)
+        self.r3.update(82, 2, 3, 4, 5)
+        self.assertEqual(self.r1.width, 2)
+        self.assertEqual(self.r3.width, 2)
+
+        self.assertRaises(TypeError, self.r1.update, 80, "2")
+        self.assertRaises(TypeError, self.r1.update, 80, [], 3)
+        self.assertRaises(TypeError, self.r1.update, 80, (1, ), 3, 4)
+        self.assertRaises(TypeError, self.r1.update, 80, 3.45, 0, 4)
+        self.assertRaises(TypeError, self.r1.update, 80, {1, 3}, 15, -3)
+        self.assertRaises(TypeError, self.r1.update, 80, {}, 1, 2, 7)
+        self.assertRaises(TypeError, self.r1.update, 80, None, None, None)
+        self.assertRaises(ValueError, self.r1.update, 80, 0, 17)
+        self.assertRaises(ValueError, self.r1.update, 80, -2, 5, 5)
+
+    def test_update_height_with_args(self):
+        self.r1.update(80)
+        self.r3.update(82)
+        self.assertEqual(self.r1.height, 2)
+        self.assertEqual(self.r3.height, 4)
+
+        self.r1.update(80, 2)
+        self.r3.update(82, 2)
+        self.assertEqual(self.r1.height, 2)
+        self.assertEqual(self.r3.height, 4)
+
+        self.r1.update(80, 2, 3)
+        self.r3.update(82, 2, 3)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.r1.update(80, 2, 3, 4)
+        self.r3.update(82, 2, 3, 4)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.r1.update(80, 2, 3, 4, 5)
+        self.r3.update(82, 2, 3, 4, 5)
+        self.assertEqual(self.r1.height, 3)
+        self.assertEqual(self.r3.height, 3)
+
+        self.assertRaises(TypeError, self.r1.update, 80, 2, "2")
+        self.assertRaises(TypeError, self.r1.update, 80, 2, [], 3)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, (1, ), 3, 4)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3.45, 0, 4)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, {1, 3}, 15, -3)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, {}, 2, 7)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, None, None)
+        self.assertRaises(ValueError, self.r1.update, 80, 2, 0, 17)
+        self.assertRaises(ValueError, self.r1.update, 80, 2, -2, 5, 5)
+
+    def test_update_x_with_args(self):
+        self.r1.update(80)
+        self.r3.update(82)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(80, 2)
+        self.r3.update(82, 2)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(80, 2, 3)
+        self.r3.update(82, 2, 3)
+        self.assertEqual(self.r1.x, 0)
+        self.assertEqual(self.r3.x, 2)
+
+        self.r1.update(80, 2, 3, 4)
+        self.r3.update(82, 2, 3, 4)
+        self.assertEqual(self.r1.x, 4)
+        self.assertEqual(self.r3.x, 4)
+
+        self.r1.update(80, 2, 3, 4, 5)
+        self.r3.update(82, 2, 3, 4, 5)
+        self.assertEqual(self.r1.x, 4)
+        self.assertEqual(self.r3.x, 4)
+
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, "2")
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, [], 3)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, (1, ), 3)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 3.45, 0)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, {1, 3}, 15)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, {})
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, None, None)
+        self.assertRaises(ValueError, self.r1.update, 80, 2, 3, -5, 17)
+
+    def test_update_y_with_args(self):
+        self.r1.update(80)
+        self.r3.update(82)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(80, 2)
+        self.r3.update(82, 2)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(80, 2, 3)
+        self.r3.update(82, 2, 3)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(80, 2, 3, 4)
+        self.r3.update(82, 2, 3, 4)
+        self.assertEqual(self.r1.y, 0)
+        self.assertEqual(self.r3.y, 2)
+
+        self.r1.update(80, 2, 3, 4, 5)
+        self.r3.update(82, 2, 3, 4, 5)
+        self.assertEqual(self.r1.y, 5)
+        self.assertEqual(self.r3.y, 5)
+
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, "2")
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, [])
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, (1, ))
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, 3.45)
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, {1, 3})
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, {})
+        self.assertRaises(TypeError, self.r1.update, 80, 2, 3, 4, None)
+        self.assertRaises(ValueError, self.r1.update, 80, 2, 3, 17, -5)
