@@ -18,8 +18,6 @@ class Square(Rectangle):
         Initializes instance attributes
         """
 
-        super().__init__(width=size, height=size, x=x, y=y, id=id)
-
         if type(size) is not int:
             raise TypeError("size must be an integer")
         if size <= 0:
@@ -32,6 +30,7 @@ class Square(Rectangle):
             raise TypeError("y must be an integer")
         if y < 0:
             raise ValueError("y must be >= 0")
+        super().__init__(width=size, height=size, x=x, y=y, id=id)
         self.__size = size
         self.__x = x
         self.__y = y
@@ -48,3 +47,26 @@ class Square(Rectangle):
             self.__y,
             self.__size
         )
+
+    @property
+    def size(self):
+        """
+        Returns the size value of Square instance
+        """
+
+        return self.__size
+
+    @size.setter
+    def size(self, size):
+        if type(size) is not int:
+            raise TypeError("size must be an integer")
+        if size <= 0:
+            raise ValueError("size must be > 0")
+        self.__size = size
+
+    def area(self):
+        """
+        Computes and returns the area of the Square instance
+        """
+
+        return self.__size * self.__size
