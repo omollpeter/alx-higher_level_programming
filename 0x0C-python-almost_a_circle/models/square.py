@@ -124,3 +124,15 @@ class Square(Rectangle):
         self._Rectangle__height = self.__size
         self._Rectangle__x = self.__x
         self._Rectangle__y = self.__y
+
+    def to_dictionary(self):
+        """
+        Returns the dictionary representation of a Rectangle instance
+        """
+
+        return dict(
+            id=self.id,
+            size=self.__size,
+            x=self.__x,
+            y=self.__y
+        )

@@ -281,7 +281,7 @@ class TestSquareObj(unittest.TestCase):
         self.assertRaises(TypeError, self.s1.update, id=80, size=3.45, x=0,
                           y=4)
         self.assertRaises(TypeError, self.s1.update, id=80, size={1, 3},
-                          height=15, x=-3)
+                          y=15, x=-3)
         self.assertRaises(TypeError, self.s1.update, id=80, size={},
                           x=2, y=7)
         self.assertRaises(TypeError, self.s1.update, id=80, size=None, x=None)
@@ -387,3 +387,28 @@ class TestSquareObj(unittest.TestCase):
         self.assertEqual(self.s1.size, 2)
         self.assertEqual(self.s1.x, 4)
         self.assertEqual(self.s1.y, 5)
+
+    def test_to_dictionary(self):
+        sq1 = Square(5, 5, 5, 71)
+        sq2 = Square(10, id=40)
+
+        self.assertEqual(sq1.to_dictionary(), {
+            'id': 71,
+            'x': 5,
+            'y': 5,
+            'size': 5
+        })
+        self.assertEqual(sq2.to_dictionary(), {
+            'id': 40,
+            'x': 0,
+            'y': 0,
+            'size': 10
+        })
+
+        sq2.update(**sq1.to_dictionary())
+        self.assertEqual(sq2.to_dictionary(), {
+            'id': 71,
+            'x': 5,
+            'y': 5,
+            'size': 5
+        })
