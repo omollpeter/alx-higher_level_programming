@@ -81,3 +81,16 @@ class Base:
                     list_dictionaries.append(dictionary)
                 data_to_save = Base.to_json_string(list_dictionaries)
                 file.write(data_to_save)
+
+    @staticmethod
+    def from_json_string(json_string):
+        """
+        Returns the list of JSON string representation json_string
+        """
+
+        if not (isinstance(json_string, (str, bytes)) or json_string is None):
+            raise TypeError("json_string must be a str or none")
+        if json_string is None or len(json_string) == 0:
+            return []
+
+        return json.loads(json_string)

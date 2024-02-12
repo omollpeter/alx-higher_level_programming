@@ -23,7 +23,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(self.b4.id, 3)
         self.assertEqual(self.b5.id, 157)
 
-    def test_to_json_string(self):
+    def test_to_json_string_rect_instaces(self):
         r1 = Rectangle(10, 7, 2, 8, 100)
         dictionary = r1.to_dictionary()
         json_dictionary = Base.to_json_string([dictionary])
@@ -41,6 +41,20 @@ class TestBase(unittest.TestCase):
         self.assertRaises(TypeError, Base.to_json_string, [(1, 2, 3)])
         self.assertRaises(TypeError, Base.to_json_string, [None])
         self.assertRaises(TypeError, Base.to_json_string, [1.0, 1.2])
+
+    def test_to_json_string_square_instances(self):
+        s1 = Square(10, 2, 8, 100)
+        dictionary = s1.to_dictionary()
+        json_dictionary = Base.to_json_string([dictionary])
+        self.assertEqual(sorted(json_dictionary), sorted(json.dumps(
+            [{"x": 2, "size": 10, "id": 100, "y": 8}])))
+        self.assertTrue(type(json_dictionary), str)
+
+        json_dictionary = Base.to_json_string([])
+        self.assertEqual(json_dictionary, [])
+        json_dictionary = Base.to_json_string(None)
+        self.assertEqual(json_dictionary, [])
+
 
     def test_save_to_file_with_rect_instances(self):
         nb_chars = 0
@@ -97,3 +111,25 @@ class TestBase(unittest.TestCase):
         self.assertRaises(TypeError, Square.save_to_file, [1, 2])
         self.assertRaises(TypeError, Square.save_to_file, (1, 2))
         self.assertRaises(TypeError, Square.save_to_file, "list_objs")
+
+    def test_static_from_json_string(self):
+        r1 = Rectangle(10, 7, 2, 8, 100)
+        dictionary = r1.to_dictionary()
+        json_dictionary = Base.to_json_string([dictionary])
+        from_json = Base.from_json_string(json_dictionary)
+        self.assertEqual(from_json,
+            [{"x": 2, "width": 10, "id": 100, "height": 7, "y": 8}])
+        self.assertTrue(type(from_json), list)
+
+        json_dictionary = Base.to_json_string([])
+        from_json = Base.from_json_string("")
+        self.assertEqual(from_json, [])
+        from_json = Base.from_json_string(None)
+        self.assertEqual(from_json, [])
+
+        self.assertRaises(json.decoder.JSONDecodeError,
+                          Base.from_json_string, "list")
+        self.assertRaises(json.decoder.JSONDecodeError,
+                          Base.from_json_string, b"list")
+        self.assertRaises(TypeError, Base.from_json_string, (1, 2, 3))
+        self.assertRaises(TypeError, Base.from_json_string, "[{'a': 4}]", 5)
