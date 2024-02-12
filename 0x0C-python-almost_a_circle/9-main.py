@@ -24,6 +24,6 @@ if __name__ == "__main__":
     s3.display()
     print(s3.size)
 
-    sa = Square(3.90, 3.15, -2)
+    sa = Square(3, 3, -2)
     print(sa)
     print(sa.area())
