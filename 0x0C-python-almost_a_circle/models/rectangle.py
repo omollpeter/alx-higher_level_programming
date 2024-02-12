@@ -203,3 +203,16 @@ class Rectangle(Base):
                     raise KeyError("invalid attribute")
         else:
             raise IndexError("length of args or kwargs must be > 0")
+
+    def to_dictionary(self):
+        """
+        Returns the dictionary representation of a Rectangle instance
+        """
+
+        return dict(
+            id=self.id,
+            width=self.__width,
+            height=self.__height,
+            x=self.__x,
+            y=self.__y
+        )

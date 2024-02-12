@@ -516,3 +516,31 @@ class TestRectangleObj(unittest.TestCase):
         self.assertEqual(self.r1.height, 3)
         self.assertEqual(self.r1.x, 4)
         self.assertEqual(self.r1.y, 5)
+
+    def test_to_dictionary(self):
+        rect1 = Rectangle(5, 5, 5, 5, 71)
+        rect2 = Rectangle(10, 10, id=40)
+
+        self.assertEqual(rect1.to_dictionary(), {
+            'id': 71,
+            'x': 5,
+            'height': 5,
+            'y': 5,
+            'width': 5
+        })
+        self.assertEqual(rect2.to_dictionary(), {
+            'id': 40,
+            'x': 0,
+            'height': 10,
+            'y': 0,
+            'width': 10
+        })
+
+        rect2.update(**rect1.to_dictionary())
+        self.assertEqual(rect2.to_dictionary(), {
+            'id': 71,
+            'x': 5,
+            'height': 5,
+            'y': 5,
+            'width': 5
+        })
