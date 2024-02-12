@@ -7,7 +7,7 @@ from io import StringIO
 class TestRectangleId(unittest.TestCase):
 
     def setUp(self):
-        self.r1 = Rectangle(10, 2)
+        self.r1 = Rectangle(10, 2, id=7)
         self.r2 = Rectangle(2, 10, id=5)
         self.r3 = Rectangle(5, 4, 2, 2, 12)
 
