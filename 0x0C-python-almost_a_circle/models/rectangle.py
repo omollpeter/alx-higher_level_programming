@@ -170,7 +170,6 @@ class Rectangle(Base):
                 self.__height = args[2]
                 self.__x = args[3]
                 self.__y = args[4]
-            return
         elif kwargs:
             for key, value in kwargs.items():
                 if key == "id":

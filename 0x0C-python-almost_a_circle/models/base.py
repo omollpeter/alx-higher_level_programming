@@ -6,6 +6,7 @@ This module contains definition for Base class
 
 
 import json
+from pathlib import Path
 
 
 class Base:
@@ -94,3 +95,39 @@ class Base:
             return []
 
         return json.loads(json_string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """
+        Returns an instance with all the attributes already set
+        """
+
+        if cls.__name__ == "Rectangle":
+            dummy = cls(10, 5)
+            dummy.update(**dictionary)
+            return dummy
+        elif cls.__name__ == "Square":
+            dummy = cls(10)
+            dummy.update(**dictionary)
+            return dummy
+
+    @classmethod
+    def load_from_file(cls):
+        """
+        Returns a list of instances from a json file
+        """
+        filename = cls.__name__ + ".json"
+        path_to_file = Path(filename)
+
+        if not path_to_file.exists():
+            return []
+
+        output = []
+        with open(filename, "r") as file:
+            instances = file.read()
+
+            list_instances = cls.from_json_string(instances)
+            for inst in list_instances:
+                inst_details = cls.create(**inst)
+                output.append(str(inst_details))
+        return output

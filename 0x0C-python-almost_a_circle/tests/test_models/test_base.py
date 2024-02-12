@@ -55,7 +55,6 @@ class TestBase(unittest.TestCase):
         json_dictionary = Base.to_json_string(None)
         self.assertEqual(json_dictionary, [])
 
-
     def test_save_to_file_with_rect_instances(self):
         nb_chars = 0
         rect1 = Rectangle(10, 7, 2, 8, 1)
@@ -117,8 +116,10 @@ class TestBase(unittest.TestCase):
         dictionary = r1.to_dictionary()
         json_dictionary = Base.to_json_string([dictionary])
         from_json = Base.from_json_string(json_dictionary)
-        self.assertEqual(from_json,
-            [{"x": 2, "width": 10, "id": 100, "height": 7, "y": 8}])
+        self.assertEqual(
+            from_json,
+            [{"x": 2, "width": 10, "id": 100, "height": 7, "y": 8}]
+        )
         self.assertTrue(type(from_json), list)
 
         json_dictionary = Base.to_json_string([])
@@ -133,3 +134,43 @@ class TestBase(unittest.TestCase):
                           Base.from_json_string, b"list")
         self.assertRaises(TypeError, Base.from_json_string, (1, 2, 3))
         self.assertRaises(TypeError, Base.from_json_string, "[{'a': 4}]", 5)
+
+    def test_method_create_with_rect(self):
+        dictionary = {'id': 1, 'width': 3, 'height': 5, 'x': 1, 'y': 5}
+        rect1 = Rectangle.create(**dictionary)
+        self.assertEqual(rect1.id, 1)
+        self.assertEqual(rect1.width, 3)
+        self.assertEqual(rect1.height, 5)
+        self.assertEqual(rect1.x, 1)
+        self.assertEqual(rect1.y, 5)
+        self.assertEqual(str(rect1), "[Rectangle] (1) 1/5 - 3/5")
+
+    def test_method_create_with_square(self):
+        dictionary = {'id': 21, 'size': 3, 'x': 7, 'y': 4}
+        sq1 = Square.create(**dictionary)
+        self.assertEqual(sq1.id, 21)
+        self.assertEqual(sq1.size, 3)
+        self.assertEqual(sq1.x, 7)
+        self.assertEqual(sq1.y, 4)
+
+    def test_load_from_file_rect(self):
+        r1 = Rectangle(10, 7, 2, 8, 112)
+        r2 = Rectangle(2, 4, id=54)
+        list_rectangles_input = [r1, r2]
+        Rectangle.save_to_file(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file()
+        self.assertEqual(list_rectangles_output, [
+            "[Rectangle] (112) 2/8 - 10/7",
+            "[Rectangle] (54) 0/0 - 2/4"
+        ])
+
+    def test_load_from_file_square(self):
+        s1 = Square(5, id=5)
+        s2 = Square(7, 9, 1, 6)
+        list_squares_input = [s1, s2]
+        Square.save_to_file(list_squares_input)
+        list_squares_output = Square.load_from_file()
+        self.assertEqual(list_squares_output, [
+            "[Square] (5) 0/0 - 5",
+            "[Square] (6) 9/1 - 7"
+        ])
