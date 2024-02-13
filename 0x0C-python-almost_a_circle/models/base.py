@@ -14,6 +14,9 @@ import turtle
 class Base:
     """
     Defines Base class
+
+    Private Class Attributes:
+        __nb_objects (int) - Number of Base instances created
     """
 
     __nb_objects = 0
