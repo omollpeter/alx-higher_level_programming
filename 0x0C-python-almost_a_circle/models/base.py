@@ -23,7 +23,10 @@ class Base:
         Initializes instance attributes
 
         Args:
-            id (int): Unique id of Base instance
+            id (None/int): Unique id of Base instance (default is None)
+
+        Attributes:
+            id (int) - Stores the integer id of Base instance
         """
         if id is not None:
             self.id = id
