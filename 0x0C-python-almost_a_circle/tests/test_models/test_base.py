@@ -3,6 +3,7 @@ from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 import json
+import csv
 
 
 class TestBase(unittest.TestCase):
@@ -72,7 +73,7 @@ class TestBase(unittest.TestCase):
             nb_chars = len(lines)
         self.assertEqual(nb_chars, 2)
 
-        Rectangle.save_to_file([])
+        Rectangle.save_to_file(None)
         with open("Rectangle.json", "r") as file:
             lines = file.read()
             nb_chars = len(lines)
@@ -100,7 +101,7 @@ class TestBase(unittest.TestCase):
             nb_chars = len(lines)
         self.assertEqual(nb_chars, 2)
 
-        Square.save_to_file([])
+        Square.save_to_file(None)
         with open("Square.json", "r") as file:
             lines = file.read()
             nb_chars = len(lines)
@@ -174,3 +175,81 @@ class TestBase(unittest.TestCase):
             "[Square] (5) 0/0 - 5",
             "[Square] (6) 9/1 - 7"
         ])
+
+    def test_load_from_file_csv_rect(self):
+        r1 = Rectangle(10, 7, 2, 8, 112)
+        r2 = Rectangle(2, 4, id=54)
+        list_rectangles_input = [r1, r2]
+        Rectangle.save_to_file_csv(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file_csv()
+        self.assertEqual(list_rectangles_output, [
+            "[Rectangle] (112) 2/8 - 10/7",
+            "[Rectangle] (54) 0/0 - 2/4"
+        ])
+
+    def test_load_from_file_csv_square(self):
+        s1 = Square(5, id=5)
+        s2 = Square(7, 9, 1, 6)
+        list_squares_input = [s1, s2]
+        Square.save_to_file_csv(list_squares_input)
+        list_squares_output = Square.load_from_file_csv()
+        self.assertEqual(list_squares_output, [
+            "[Square] (5) 0/0 - 5",
+            "[Square] (6) 9/1 - 7"
+        ])
+
+    def test_save_to_file_csv_with_rect_instances(self):
+        nb_chars = 0
+        rect1 = Rectangle(10, 7, 2, 8, 1)
+        rect2 = Rectangle(2, 4, 1, 1, 32)
+
+        Rectangle.save_to_file_csv([rect1, rect2])
+        with open("Rectangle.csv", "r") as file:
+            reader = csv.DictReader(file)
+            nb_lines = 0
+            for row in reader:
+                nb_lines += 1
+        self.assertEqual(nb_lines, 2)
+
+        Rectangle.save_to_file_csv([])
+        with open("Rectangle.csv", "r") as file:
+            reader = csv.DictReader(file)
+            nb_lines = 0
+            for row in reader:
+                nb_lines += 1
+        self.assertEqual(nb_chars, 0)
+
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv)
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv, 1)
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv, None)
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv, [1, 2])
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv, (1, 2))
+        self.assertRaises(TypeError, Rectangle.save_to_file_csv, "list_objs")
+
+    def test_save_to_file_csv_with_square_instances(self):
+        nb_chars = 0
+        sq1 = Square(10, 2, 8, 11)
+        sq2 = Square(2, 1, 1, 32)
+
+        Square.save_to_file_csv([sq1, sq2])
+        with open("Square.csv", "r") as file:
+            reader = csv.DictReader(file)
+            nb_lines = 0
+            for row in reader:
+                nb_lines += 1
+        self.assertEqual(nb_lines, 2)
+
+        Square.save_to_file_csv([])
+        with open("Square.csv", "r") as file:
+            reader = csv.DictReader(file)
+            nb_lines = 0
+            for row in reader:
+                nb_lines += 1
+        self.assertEqual(nb_lines, 0)
+
+        self.assertRaises(TypeError, Square.save_to_file_csv)
+        self.assertRaises(TypeError, Square.save_to_file_csv, 1)
+        self.assertRaises(TypeError, Square.save_to_file_csv, None)
+        self.assertRaises(TypeError, Square.save_to_file_csv, [1, 2])
+        self.assertRaises(TypeError, Square.save_to_file_csv, (1, 2))
+        self.assertRaises(TypeError, Square.save_to_file_csv, "list_objs")

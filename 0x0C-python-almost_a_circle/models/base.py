@@ -7,6 +7,7 @@ This module contains definition for Base class
 
 import json
 from pathlib import Path
+import csv
 
 
 class Base:
@@ -131,3 +132,86 @@ class Base:
                 inst_details = cls.create(**inst)
                 output.append(str(inst_details))
         return output
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """
+        Writes to a CSV file
+        """
+        if isinstance(list_objs, (list,)):
+            for _ in list_objs:
+                if not isinstance(_, Base):
+                    raise TypeError(
+                        "list_objs must be a list of instances that" +
+                        " inherits from Base or None"
+                    )
+        else:
+            raise TypeError(
+                "list_objs must be a list of instances that" +
+                " inherits from Base or None"
+            )
+
+        filename = cls.__name__ + ".csv"
+
+        if cls.__name__ == "Rectangle":
+            fields = ["id", "width", "height", "x", "y"]
+            with open(filename, "w") as file:
+                writer = csv.DictWriter(file, fieldnames=fields)
+                writer.writeheader()
+
+                obj_dictionaries = []
+                for obj in list_objs:
+                    obj_dict = obj.to_dictionary()
+                    obj_dictionaries.append(obj_dict)
+                for obj in obj_dictionaries:
+                    writer.writerow(obj)
+
+        elif cls.__name__ == "Square":
+            fields = ["id", "size", "x", "y"]
+            with open(filename, "w", newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=fields)
+                writer.writeheader()
+
+                obj_dictionaries = []
+                for obj in list_objs:
+                    obj_dict = obj.to_dictionary()
+                    obj_dictionaries.append(obj_dict)
+                for obj in obj_dictionaries:
+                    writer.writerow(obj)
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """
+        Reads from a CSV file
+        """
+
+        filename = cls.__name__ + ".csv"
+
+        path_to_file = Path(filename)
+
+        if not path_to_file.exists():
+            return []
+
+        list_instances = []
+        with open(filename, "r") as file:
+            csv_reader = csv.DictReader(file)
+
+            for row in csv_reader:
+                if len(row) == 5:
+                    list_instances.append("[{}] ({}) {}/{} - {}/{}".format(
+                        "Rectangle",
+                        row["id"],
+                        row["x"],
+                        row["y"],
+                        row["width"],
+                        row["height"]
+                    ))
+                elif len(row) == 4:
+                    list_instances.append("[{}] ({}) {}/{} - {}".format(
+                        "Square",
+                        row["id"],
+                        row["x"],
+                        row["y"],
+                        row["size"],
+                    ))
+        return list_instances
