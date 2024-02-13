@@ -215,3 +215,10 @@ class Base:
                         row["size"],
                     ))
         return list_instances
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """
+        Opens a window then draws all Rectangles and Squares
+        """
+        pass
