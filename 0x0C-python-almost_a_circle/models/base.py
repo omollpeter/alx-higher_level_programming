@@ -8,6 +8,7 @@ This module contains definition for Base class
 import json
 from pathlib import Path
 import csv
+import turtle
 
 
 class Base:
@@ -221,4 +222,46 @@ class Base:
         """
         Opens a window then draws all Rectangles and Squares
         """
-        pass
+
+        my_screen = turtle.Screen()
+        my_turtle = turtle.Turtle()
+        my_turtle.speed(1)
+
+        for rect in list_rectangles:
+            dictionary = rect.to_dictionary()
+            x = dictionary["x"]
+            y = dictionary["y"]
+            width = dictionary["width"]
+            height = dictionary["height"]
+
+            my_turtle.penup()
+            my_turtle.goto(x, y)
+            my_turtle.pendown()
+            my_turtle.fillcolor("red")
+            my_turtle.begin_fill()
+            my_turtle.forward(width)
+            my_turtle.right(90)
+            my_turtle.forward(height)
+            my_turtle.right(90)
+            my_turtle.forward(width)
+            my_turtle.right(90)
+            my_turtle.forward(height)
+            my_turtle.end_fill()
+
+        for sq in list_squares:
+            dictionary = sq.to_dictionary()
+            x = dictionary["x"]
+            y = dictionary["y"]
+            size = dictionary["size"]
+
+            my_turtle.penup()
+            my_turtle.goto(x, y)
+            my_turtle.pendown()
+
+            my_turtle.fillcolor("blue")
+            my_turtle.begin_fill()
+            for i in range(4):
+                my_turtle.forward(size)
+                my_turtle.right(90)
+            my_turtle.end_fill()
+        my_screen.exitonclick()
