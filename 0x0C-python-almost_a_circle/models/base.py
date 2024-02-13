@@ -24,13 +24,8 @@ class Base:
     def __init__(self, id=None):
         """
         Initializes instance attributes
-
-        Args:
-            id (None/int): Unique id of Base instance (default is None)
-
-        Attributes:
-            id (int) - Stores the integer id of Base instance
         """
+
         if id is not None:
             self.id = id
         else:
