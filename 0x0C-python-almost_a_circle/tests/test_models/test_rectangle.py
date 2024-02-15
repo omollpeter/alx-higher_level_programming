@@ -573,6 +573,7 @@ class TestRectangleObj(unittest.TestCase):
     def test_save_to_file_with_rect_instances(self):
         nb_chars = 0
 
+        self.assertEqual(Rectangle.save_to_file(None), None)
         Rectangle.save_to_file(None)
         with open("Rectangle.json", "r") as file:
             lines = file.read()
