@@ -37,6 +37,8 @@ class TestRectangleObj(unittest.TestCase):
         self.r1.width = 15
         self.assertEqual(self.r1.width, 15)
         self.assertRaises(TypeError, Rectangle, "5", 4)
+        self.assertRaises(ValueError, Rectangle, -1, 2)
+        self.assertRaises(ValueError, Rectangle, 0, 2)
         rect = Rectangle(3, 3)
         self.assertRaises(TypeError, setattr, rect, "width", "4")
         self.assertRaises(TypeError, setattr, rect, "width", [])
@@ -55,6 +57,8 @@ class TestRectangleObj(unittest.TestCase):
         self.r1.height = 7
         self.assertEqual(self.r1.height, 7)
         self.assertRaises(TypeError, Rectangle, 5, "4")
+        self.assertRaises(ValueError, Rectangle, 1, -2)
+        self.assertRaises(ValueError, Rectangle, 1, 0)
         rect = Rectangle(5, 5)
         self.assertRaises(TypeError, setattr, rect, "height", "4")
         self.assertRaises(TypeError, setattr, rect, "height", [])
@@ -73,6 +77,7 @@ class TestRectangleObj(unittest.TestCase):
         self.r1.x = 15
         self.assertEqual(self.r1.x, 15)
         self.assertRaises(TypeError, Rectangle, 5, 4, "2", 2, 151)
+        self.assertRaises(ValueError, Rectangle, 1, 2, -3)
         rect = Rectangle(3, 3)
         self.assertRaises(TypeError, setattr, rect, "x", "4")
         self.assertRaises(TypeError, setattr, rect, "x", [])
@@ -90,6 +95,7 @@ class TestRectangleObj(unittest.TestCase):
         self.r1.y = 15
         self.assertEqual(self.r1.y, 15)
         self.assertRaises(TypeError, Rectangle, 5, 4, 2, "2", 152)
+        self.assertRaises(ValueError, Rectangle, 1, 2, 3, -4)
         rect = Rectangle(3, 3)
         self.assertRaises(TypeError, setattr, rect, "y", "4")
         self.assertRaises(TypeError, setattr, rect, "y", [])
@@ -120,10 +126,29 @@ class TestRectangleObj(unittest.TestCase):
         sys.stdout = captured_output
 
         rect1.display()
-        printed = captured_output.getvalue()
+        printed1 = captured_output.getvalue()
 
         sys.stdout = sys.__stdout__
-        self.assertEqual(printed, "\n ##\n ##\n")
+    
+        rect2 = Rectangle(2, 2)
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        rect2.display()
+        printed2 = captured_output.getvalue()
+
+        sys.stdout = sys.__stdout__
+
+        rect3 = Rectangle(2, 2, 2)
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        rect3.display()
+        printed3 = captured_output.getvalue()
+
+        sys.stdout = sys.__stdout__
+
+        self.assertEqual(printed1, "\n ##\n ##\n")
+        self.assertEqual(printed2, "##\n##\n")
+        self.assertEqual(printed3, "  ##\n  ##\n")
 
     def test_update_id_with_args(self):
         rect1 = Rectangle(5, 5, 5, 5, 71)
@@ -544,3 +569,12 @@ class TestRectangleObj(unittest.TestCase):
             'y': 5,
             'width': 5
         })
+
+    def test_save_to_file_with_rect_instances(self):
+        nb_chars = 0
+
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as file:
+            lines = file.read()
+            nb_chars = len(lines)
+        self.assertEqual(nb_chars, 2)

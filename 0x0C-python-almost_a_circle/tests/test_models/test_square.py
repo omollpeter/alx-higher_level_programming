@@ -31,6 +31,8 @@ class TestSquareObj(unittest.TestCase):
         self.s1.size = 15
         self.assertEqual(self.s1.size, 15)
         self.assertRaises(TypeError, Square, "5", 4)
+        self.assertRaises(ValueError, Square, -1)
+        self.assertRaises(ValueError, Square, 0)
         square = Square(3, 3)
         self.assertRaises(TypeError, setattr, square, "size", "4")
         self.assertRaises(TypeError, setattr, square, "size", [])
@@ -49,6 +51,7 @@ class TestSquareObj(unittest.TestCase):
         self.s1.x = 15
         self.assertEqual(self.s1.x, 15)
         self.assertRaises(TypeError, Square, 5, "2", 2, 151)
+        self.assertRaises(ValueError, Square, 1, -2)
         square = Square(3, 3)
         self.assertRaises(TypeError, setattr, square, "x", "4")
         self.assertRaises(TypeError, setattr, square, "x", [])
@@ -66,6 +69,7 @@ class TestSquareObj(unittest.TestCase):
         self.s1.y = 15
         self.assertEqual(self.s1.y, 15)
         self.assertRaises(TypeError, Square, 5, 2, "2", 152)
+        self.assertRaises(ValueError, Square, 1, 2, -3)
         square = Square(3, 3)
         self.assertRaises(TypeError, setattr, square, "y", "4")
         self.assertRaises(TypeError, setattr, square, "y", [])
@@ -412,3 +416,12 @@ class TestSquareObj(unittest.TestCase):
             'y': 5,
             'size': 5
         })
+
+    def test_save_to_file_with_square_instances(self):
+        nb_chars = 0
+
+        Square.save_to_file(None)
+        with open("Square.json", "r") as file:
+            lines = file.read()
+            nb_chars = len(lines)
+        self.assertEqual(nb_chars, 2)
