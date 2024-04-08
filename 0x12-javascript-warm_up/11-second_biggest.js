@@ -15,5 +15,19 @@ if (listToProcess.length <= 1) {
       max = listToProcess[i];
     }
   }
-  console.log(max);
+
+  const maxIndex = listToProcess.indexOf(max);
+  listToProcess.splice(maxIndex, 1);
+
+  max = listToProcess[0];
+  if (listToProcess.length === 1) {
+    console.log(listToProcess[0]);
+  } else {
+    for (let i = 1; i < listToProcess.length; i++) {
+      if (listToProcess[i] > max) {
+        max = listToProcess[i];
+      }
+    }
+    console.log(max);
+  }
 }
