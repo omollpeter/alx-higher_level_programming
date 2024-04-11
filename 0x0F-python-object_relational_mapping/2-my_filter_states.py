@@ -5,7 +5,7 @@ argument from the database hbtn_0e_0_usa
 It uses MySQLdb module/interface to connect to the database and
 execute the queries
 The script takes 4 arguments - mysql username, mysql password
-database name, 
+database name and search name searched
 """
 
 
