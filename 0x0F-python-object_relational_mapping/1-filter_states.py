@@ -28,7 +28,10 @@ if __name__ == "__main__":
     )
 
     cursor = db.cursor()
-    cursor.execute(f"SELECT * FROM {table} WHERE name LIKE 'N%' ORDER BY id ASC")
+    cursor.execute(
+        f"SELECT * FROM {table}" +
+        f" WHERE BINARY name LIKE 'N%' ORDER BY id ASC"
+    )
     data = cursor.fetchall()
 
     for row in data:
