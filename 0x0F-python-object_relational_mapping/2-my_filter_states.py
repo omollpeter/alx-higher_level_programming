@@ -30,8 +30,10 @@ if __name__ == "__main__":
 
     cursor = db.cursor()
     cursor.execute(
-        f"SELECT * FROM {table}" +
-        f" WHERE BINARY name = '{srch_name}' ORDER BY id ASC"
+        "SELECT * FROM {} WHERE BINARY name = '{}' ORDER BY id ASC".format(
+            table,
+            srch_name
+        )
     )
     data = cursor.fetchall()
 
