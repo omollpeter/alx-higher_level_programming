@@ -18,17 +18,21 @@ password = sys.argv[2]
 database = sys.argv[3]
 table = "states"
 
-db = MySQLdb.connect(
-    host="localhost",
-    port=3306,
-    user=username,
-    passwd=password,
-    db=database,
-)
+if __name__ == "__main__":
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=username,
+        passwd=password,
+        db=database,
+    )
 
-cursor = db.cursor()
-cursor.execute(f"SELECT * FROM {table}")
-data = cursor.fetchall()
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM {table} ORDER BY id ASC")
+    data = cursor.fetchall()
 
-for row in data:
-    print(row)
+    for row in data:
+        print(row)
+    
+    cursor.close()
+    db.close()
