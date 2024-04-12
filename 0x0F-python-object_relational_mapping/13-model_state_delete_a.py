@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-This script lists all state objects that contain the letter a from the
-database hbtn_0e_6_usa
+This script deletes all State objects with a name containing the letter
+a from the database hbtn_0e_6_usa
 """
 
 
@@ -23,11 +23,10 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    st_with_a = session.query(State).filter(State.name.like("%a%")).order_by(
-        State.id.asc()
-    ).all()
+    st_with_a = session.query(State).filter(State.name.like("%a%")).all()
 
     for state in st_with_a:
-        print(f"{state.id}: {state.name}")
+        session.delete(state)
+        session.commit()
 
     session.close()
