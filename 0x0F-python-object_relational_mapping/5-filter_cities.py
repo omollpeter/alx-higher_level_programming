@@ -41,12 +41,15 @@ if __name__ == "__main__":
     for row in data:
         cities.append(row[0])
 
-    for i in range(len(cities)):
-        print(cities[i], end="")
-        if i == len(cities) - 1:
-            print()
-            continue
-        print(", ", end='')
+    if not cities:
+        print()
+    else:
+        for i in range(len(cities)):
+            print(cities[i], end="")
+            if i == len(cities) - 1:
+                print()
+                continue
+            print(", ", end='')
 
     cursor.close()
     db.close()
