@@ -21,14 +21,13 @@ if __name__ == "__main__":
 
     response = requests.post(url=url, data=data)
 
-    json_data = response.json()
-    if not json_data:
-        print("No result")
-        sys.exit(0)
-
-    if type(json_data) is dict:
-        print("[{}] {}".format(
-            json_data.get("id"), json_data.get("name")
-        ))
-    else:
+    try:
+        json_data = response.json()
+        if json_data:
+            print("[{}] {}".format(
+                json_data.get("id"), json_data.get("name")
+            ))
+        else:
+            print("No result")
+    except Exception as e:
         print("Not a valid JSON")
