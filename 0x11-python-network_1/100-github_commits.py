@@ -21,8 +21,11 @@ if __name__ == "__main__":
     response = requests.get(url=url, headers=headers)
     commits = response.json()
     if commits:
-        for i in range(10):
+        for i in range(len(commits)):
             author = commits[i].get("commit").get("author")
             print("{}: {}".format(
                 commits[i].get("sha"), author.get("name")
             ))
+
+            if i == 9:
+                break
