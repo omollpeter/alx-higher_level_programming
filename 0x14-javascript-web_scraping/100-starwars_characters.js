@@ -10,18 +10,9 @@ request(url, (error, response, body) => {
 
   const characters = JSON.parse(body).characters;
   characters.forEach(character => {
-    fetch(character)
-      .then(response => {
-        if (!response.ok) {
-          console.log('Problem with response');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data.name);
-      })
-      .catch(error => {
-        console.log('Error:', error);
-      });
+        request(character, (error, response, body) => {
+            console.log(JSON.parse(body).name);
+        })
+
   });
 });
