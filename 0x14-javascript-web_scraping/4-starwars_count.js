@@ -10,9 +10,11 @@ request(url, (error, response, body) => {
   const films = JSON.parse(body).results;
   let count = 0;
 
-  for (let i = 0; i < films.length; i++) {
-    if (films[i].characters.includes('https://swapi-api.alx-tools.com/api/people/18/')) {
-      count += 1;
+  for (const film of films) {
+    for (const char of film.characters) {
+      if (char.includes('18')) {
+        count += 1;
+      }
     }
   }
 
