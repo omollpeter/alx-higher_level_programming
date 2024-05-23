@@ -1,45 +1,43 @@
 #!/usr/bin/node
-const request = require("request");
-const url = "https://swapi-api.alx-tools.com/api/films/" + process.argv[2];
+const request = require('request');
+const url = 'https://swapi-api.alx-tools.com/api/films/' + process.argv[2];
 
-async function fetchData(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Problem with response")
-        }
-
-        const data = await response.json()
-        return data;
-    } catch (error) {
-        console.log("Error:", error)
-    }
+function fetchData(url) {
+    return new Promise((resolve, reject) => {
+        request(url, (error, response, body) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(JSON.parse(body).name);
+        });
+    });
 }
 
 async function fetchMultiple(urls) {
-    const results = [];
-
-    for (const url of urls) {
-        const data = await fetchData(url);
-        results.push(data.name);
+    if (urls.length === 0) {
+        return [];
     }
-    return results;
+
+    const url = urls.shift();
+    const data = await fetchData(url);
+    const remData = await fetchMultiple(urls);
+    return [data, ...remData];
 }
 
 request(url, (error, response, body) => {
-    if (error) {
-        console.log(error);
-        return;
-    }
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-    const characters = JSON.parse(body).characters;
+  const characters = JSON.parse(body).characters;
     fetchMultiple(characters)
         .then(results => {
-            for (const result of results) {
-                console.log(results);
+            for (for const res of results) {
+                console.log(res);
             }
         })
         .catch(error => {
-            console.log("Error:", error);
+            console.log(error);
         })
-})
+});
