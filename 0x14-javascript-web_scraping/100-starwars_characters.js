@@ -10,9 +10,12 @@ request(url, (error, response, body) => {
 
   const characters = JSON.parse(body).characters;
   characters.forEach(character => {
-        request(character, (error, response, body) => {
-            console.log(JSON.parse(body).name);
-        })
-
+    request(character, (error, response, body) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      console.log(JSON.parse(body).name);
+    });
   });
 });
